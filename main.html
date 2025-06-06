@@ -1,16 +1,61 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Color Board</title>
+<style>
+  .container {
+    display: grid;
+    grid-template-columns: repeat(40, 20px);
+    gap: 2px;
+    width: max-content;
+    margin: 20px auto;
+  }
+  .square {
+    width: 20px;
+    height: 20px;
+    background-color: #eee;
+    transition: background-color 1s ease;
+  }
+</style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+
+<div class="container" id="container"></div>
+
+<script>
+  const container = document.getElementById("container");
+
+  // Create 800 squares
+  for (let i = 0; i < 800; i++) {
+    const box = document.createElement("div");
+    box.className = "square";
+
+    box.addEventListener("mouseenter", () => {
+      // Change to random color on hover
+      const randomColor = getRandomColor();
+      box.style.backgroundColor = randomColor;
+
+      // After 1 second, revert back smoothly to #eee
+      setTimeout(() => {
+        box.style.backgroundColor = "#eee";
+      }, 1000);
+    });
+
+    container.appendChild(box);
+  }
+
+  // Helper function to get random hex color
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let j = 0; j < 6; j++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 </script>
 
 </body>
-
 </html>
