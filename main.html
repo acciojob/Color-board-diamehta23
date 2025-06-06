@@ -3,20 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Color Board</title>
+<title>Color Board with Faded Borders</title>
 <style>
+  body {
+    background-color: black;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
   .container {
     display: grid;
     grid-template-columns: repeat(40, 20px);
-    gap: 2px;
-    width: max-content;
-    margin: 20px auto;
+    gap: 0; /* no gap, borders used for grid lines */
   }
   .square {
     width: 20px;
     height: 20px;
-    background-color: #eee;
+    background-color: black;
+    border: 1px solid rgba(128, 128, 128, 0.3); /* faded gray border */
+    box-sizing: border-box;
     transition: background-color 1s ease;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -27,26 +36,21 @@
 <script>
   const container = document.getElementById("container");
 
-  // Create 800 squares
   for (let i = 0; i < 800; i++) {
     const box = document.createElement("div");
     box.className = "square";
 
     box.addEventListener("mouseenter", () => {
-      // Change to random color on hover
-      const randomColor = getRandomColor();
-      box.style.backgroundColor = randomColor;
+      box.style.backgroundColor = getRandomColor();
 
-      // After 1 second, revert back smoothly to #eee
       setTimeout(() => {
-        box.style.backgroundColor = "#eee";
+        box.style.backgroundColor = "black";
       }, 1000);
     });
 
     container.appendChild(box);
   }
 
-  // Helper function to get random hex color
   function getRandomColor() {
     const letters = "0123456789ABCDEF";
     let color = "#";
